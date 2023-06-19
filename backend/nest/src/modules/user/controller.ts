@@ -6,14 +6,9 @@ import { User } from '../../models/User';
 export class UserController {
   constructor(private readonly userService: UsersService) {}
 
-  @Get()
-  async findAll(): Promise<User[] | null> {
-    return await this.userService.findAll();
-  }
-
   @Post('find')
-  async findOne(@Body() body: Omit<Partial<User>, 'password'>) {
-    return await this.userService.findOne(body);
+  async find(@Body() body: Omit<Partial<User>, 'password'>) {
+    return await this.userService.find(body);
   }
 
   @Post('new')

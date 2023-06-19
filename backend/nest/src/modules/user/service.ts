@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/User';
 import { ReturnModelType } from '@typegoose/typegoose';
+import { flattenObject } from '../../utils/index';
 
 @Injectable()
 export class UsersService {
@@ -17,14 +18,8 @@ export class UsersService {
     return createdUser.save();
   }
 
-  async findAll(): Promise<User[] | null> {
-    return await this.userModel.find().exec();
-  }
-
-  async findOne(queryParams: Omit<Partial<User>, 'password'>): Promise<User | null> {
-    const res = await this.userModel.findOne(queryParams).exec();
-    if (!res) return null;
-    return res;
+  async find(queryParams: Omit<Partial<User>, 'password'>): Promise<Array<User> | []> {
+    return await this.userModel.find(flattenObject(queryParams)).exec();
   }
 
   async login(user: User): Promise<boolean> {
