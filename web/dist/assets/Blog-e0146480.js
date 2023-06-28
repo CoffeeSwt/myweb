@@ -1,0 +1,1 @@
+import{d as n,i as o,r as c,w as r,c as l,t as u,h as p}from"./index-9cbd9902.js";const f=n({__name:"Blog",setup(m){const t=o(),a=c(""),s=async e=>{a.value=e};return r(async()=>{await s(t.params.name)}),(e,i)=>(p(),l("div",null,u(a.value),1))}});export{f as default};

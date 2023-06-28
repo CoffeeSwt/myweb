@@ -1,0 +1,1 @@
+import{d as t,a,c as n,e as o,h as s}from"./index-9cbd9902.js";const m=t({__name:"Test",setup(c){return(async()=>{})(),(r,_)=>{const e=a("el-table");return s(),n("div",null,[o(e)])}}});export{m as default};
