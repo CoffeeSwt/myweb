@@ -10,7 +10,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
   imports: [
     UserModule,
     AuthModule,
-    TypegooseModule.forRoot('mongodb://localhost:27017/myweb'),
+    TypegooseModule.forRoot('mongodb://root:120400@localhost:27017/?authMechanism=DEFAULT'),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
