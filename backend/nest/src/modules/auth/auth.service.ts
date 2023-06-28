@@ -42,7 +42,7 @@ export class AuthService {
 
   async generateTokens(user: any) {
     const token = await this.signToken<Partial<ActiveUserData>>(user._id, { name: user.username });
-    return { token };
+    return { token: `Bearer ${token}` };
   }
 
   private async signToken<T>(userId: number, payload?: T) {
