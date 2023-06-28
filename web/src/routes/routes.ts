@@ -1,8 +1,20 @@
 export const routes = [
   {
     path: "/",
-    name: "home",
-    component: () => import("@/pages/Home.vue"),
+    name: "layout",
+    component: () => import("@/layout/index.vue"),
+    children: [
+      {
+        path: "/",
+        name: "home",
+        component: () => import("@/pages/Home.vue"),
+      },
+      {
+        path: "blog/:name",
+        name: "blog",
+        component: () => import("@/pages/Blog.vue"),
+      },
+    ],
   },
   {
     path: "/test",
