@@ -40,7 +40,9 @@ http.interceptors.response.use(
     }
     return arr.data;
   },
-  (err) => {}
+  (err) => {
+    console.log(err);
+  }
 );
 // 返出
 export { http, baseURL };
