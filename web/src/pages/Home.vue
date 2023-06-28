@@ -44,11 +44,11 @@ onMounted(() => {
                   viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
+                  stroke="currentColor"
                 >
                   <path
                     d="M18 6C18 9.31371 20.6863 12 24 12C27.3137 12 30 9.31371 30 6H35.4545L42 15.8182L36.2727 20.7273V42H11.7273V20.7273L6 15.8182L12.5455 6H18Z"
-                    fill="none"
-                    stroke="#333"
+                    stroke-linecap="round"
                     stroke-width="3"
                     stroke-linejoin="round"
                   />
@@ -57,28 +57,30 @@ onMounted(() => {
               >
               <ul
                 tabindex="0"
-                class="dropdown-content menu shadow rounded-box w-20"
+                class="dropdown-content menu shadow rounded-box w-24 bg-base-100"
               >
                 <li class="flex justify-center items-center">
-                  <button data-set-theme="cupcake" class="p-2 text-lg">
+                  <button
+                    data-set-theme="cupcake"
+                    class="p-2 text-lg flex items-center"
+                  >
                     <svg
                       width="21"
                       height="21"
                       viewBox="0 0 48 48"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      stroke="currentColor"
                     >
                       <path
                         d="M11 18.1672C11 18.0749 11.0749 18 11.1672 18H34.8328C34.9251 18 35 18.0749 35 18.1672V30C35 36.6274 29.6274 42 23 42C16.3726 42 11 36.6274 11 30V18.1672Z"
                         fill="none"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
                       <path
                         d="M35 30C38.3137 30 41 27.3137 41 24C41 20.6863 38.3137 18 35 18"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linecap="round"
                       />
@@ -87,7 +89,6 @@ onMounted(() => {
                         y1="8"
                         x2="11"
                         y2="11"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -97,7 +98,6 @@ onMounted(() => {
                         y1="8"
                         x2="35"
                         y2="11"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -107,47 +107,54 @@ onMounted(() => {
                         y1="5"
                         x2="23"
                         y2="11"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linecap="round"
                         stroke-linejoin="round"
                       />
                     </svg>
+                    <span class="text-sm">咖啡</span>
                   </button>
                 </li>
 
                 <li class="flex justify-center items-center">
-                  <button data-set-theme="dark" class="p-2 text-lg">
+                  <button
+                    data-set-theme="dark"
+                    class="p-2 text-lg flex items-center"
+                  >
                     <svg
                       width="21"
                       height="21"
                       viewBox="0 0 48 48"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      stroke="currentColor"
                     >
                       <path
                         d="M28.0527 4.41085C22.5828 5.83695 18.5455 10.8106 18.5455 16.7273C18.5455 23.7564 24.2436 29.4545 31.2727 29.4545C37.1894 29.4545 42.1631 25.4172 43.5891 19.9473C43.8585 21.256 44 22.6115 44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C25.3885 4 26.744 4.14149 28.0527 4.41085Z"
                         fill="none"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linejoin="round"
                       />
                     </svg>
+                    <span class="text-sm">夜间</span>
                   </button>
                 </li>
                 <li class="flex justify-center items-center">
-                  <button data-set-theme="wireframe" class="p-2 text-lg">
+                  <button
+                    data-set-theme="wireframe"
+                    class="p-2 text-lg flex items-center"
+                  >
                     <svg
                       width="21"
                       height="21"
                       viewBox="0 0 48 48"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      stroke="currentColor"
                     >
                       <path
                         d="M24 37C31.1797 37 37 31.1797 37 24C37 16.8203 31.1797 11 24 11C16.8203 11 11 16.8203 11 24C11 31.1797 16.8203 37 24 37Z"
                         fill="none"
-                        stroke="#333"
                         stroke-width="3"
                         stroke-linejoin="round"
                       />
@@ -184,6 +191,7 @@ onMounted(() => {
                         fill="#333"
                       />
                     </svg>
+                    <span class="text-sm">日间</span>
                   </button>
                 </li>
               </ul>
@@ -195,24 +203,22 @@ onMounted(() => {
                 viewBox="0 0 48 48"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
               >
                 <path
                   d="M7 37C7 29.2967 7 11 7 11C7 7.68629 9.68629 5 13 5H35V31C35 31 18.2326 31 13 31C9.7 31 7 33.6842 7 37Z"
                   fill="none"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linejoin="round"
                 />
                 <path
                   d="M35 31C35 31 14.1537 31 13 31C9.68629 31 7 33.6863 7 37C7 40.3137 9.68629 43 13 43C15.2091 43 25.8758 43 41 43V7"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
                 <path
                   d="M14 37H34"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -227,28 +233,25 @@ onMounted(() => {
                 viewBox="0 0 48 48"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
               >
                 <path
                   d="M29.3444 30.4765C31.7481 29.977 33.9292 29.1108 35.6247 27.8391C38.5202 25.6676 40 22.3136 40 18.9999C40 16.6752 39.1187 14.505 37.5929 12.6668C36.7427 11.6425 39.2295 3.99989 37.02 5.02919C34.8105 6.05848 31.5708 8.33679 29.8726 7.83398C28.0545 7.29565 26.0733 6.99989 24 6.99989C22.1992 6.99989 20.4679 7.22301 18.8526 7.6344C16.5046 8.23237 14.2591 5.99989 12 5.02919C9.74086 4.05848 10.9736 11.9632 10.3026 12.7944C8.84119 14.6051 8 16.7288 8 18.9999C8 22.3136 9.79086 25.6676 12.6863 27.8391C14.6151 29.2857 17.034 30.2076 19.7401 30.6619"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                 />
                 <path
                   d="M19.7397 30.6619C18.5812 31.937 18.002 33.1478 18.002 34.2944C18.002 35.441 18.002 38.3464 18.002 43.0106"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                 />
                 <path
                   d="M29.3446 30.4766C30.4423 31.9174 30.9912 33.211 30.9912 34.3576C30.9912 35.5042 30.9912 38.3885 30.9912 43.0107"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                 />
                 <path
                   d="M6 31.2155C6.89887 31.3254 7.56554 31.7387 8 32.4554C8.65169 33.5303 11.0742 37.518 13.8251 37.518C15.6591 37.518 17.0515 37.518 18.0024 37.518"
-                  stroke="#333"
                   stroke-width="3"
                   stroke-linecap="round"
                 />
@@ -265,10 +268,12 @@ onMounted(() => {
       </div>
       <div class="drawer-side">
         <label for="my-drawer" class="drawer-overlay"></label>
-        <ul class="menu p-4 sm:w-80 h-full bg-base-200 text-base-content">
+        <ul
+          class="menu p-4 w-56 sm:w-80 h-full bg-base-200 text-base-content pt-2"
+        >
           <!-- Sidebar content here -->
-          <li><a>Sidebar Item 1</a></li>
-          <li><a>Sidebar Item 2</a></li>
+          <li class="menu-title text-base sm:text-lg">Coffee的网站</li>
+          <div class="divider my-0"></div>
         </ul>
       </div>
     </div>

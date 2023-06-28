@@ -4,9 +4,9 @@ export const routes = [
     name: "home",
     component: () => import("@/pages/Home.vue"),
   },
-  //   {
-  //     path: "/text",
-  //     name: "text",
-  //     component: () => import("@/pages/Text.vue"),
-  //   },
+  {
+    path: "/test",
+    name: "test",
+    component: () => import("@/pages/Test.vue"),
+  },
 ];
