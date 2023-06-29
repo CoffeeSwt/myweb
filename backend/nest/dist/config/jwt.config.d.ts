@@ -1,3 +1,9 @@
+export declare const jwtConstants: {
+    secret: string;
+    audience: string;
+    issuer: string;
+    accessTokenTtl: number;
+};
 declare const _default: (() => {
     secret: string;
     audience: string;

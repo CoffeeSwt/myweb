@@ -42,6 +42,10 @@ __decorate([
     (0, typegoose_1.prop)(),
     __metadata("design:type", Job)
 ], User.prototype, "job", void 0);
+__decorate([
+    (0, typegoose_1.prop)(),
+    __metadata("design:type", Array)
+], User.prototype, "roles", void 0);
 exports.User = User = __decorate([
     (0, typegoose_1.modelOptions)({ schemaOptions: { collection: 'users' } })
 ], User);

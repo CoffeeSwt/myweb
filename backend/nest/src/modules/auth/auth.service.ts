@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../../config/jwt.config';
@@ -8,6 +8,7 @@ import { InjectModel } from 'nestjs-typegoose';
 import { User } from '../../models/User';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { ActiveUserData } from './active-user-data.interface';
+import { Role } from 'src/constants';
 
 @Injectable()
 export class AuthService {
@@ -27,16 +28,18 @@ export class AuthService {
     const hashedPassword = await this.hashingService.hash(createUserDto.password);
     (createUserDto as User).state = 'activate';
     (createUserDto as User).password = hashedPassword;
+    createUserDto.roles = [Role.Normal];
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
 
-  async login(user: User): Promise<boolean | any> {
+  async login(user: User): Promise<ForbiddenException | object> {
     const { username, password } = user;
     const userFind = await this.userModel.findOne({ username }).exec();
-    if (!userFind) return false;
+    if (!userFind) return new ForbiddenException();
     const isEqual = await this.hashingService.compare(password, userFind.password);
-    if (!isEqual) return false;
+    if (!isEqual) return new ForbiddenException();
+
     return await this.generateTokens(userFind);
   }
 
@@ -58,5 +61,13 @@ export class AuthService {
         expiresIn: this.jwtConfiguration.accessTokenTtl,
       },
     );
+  }
+
+  async validateUser(username, password) {
+    const userFind = await this.userModel.findOne({ username }).exec();
+    if (!userFind) return null;
+    const isEqual = await this.hashingService.compare(password, userFind.password);
+    if (!isEqual) return null;
+    return userFind;
   }
 }

@@ -1,3 +1,4 @@
+import { Role } from 'src/constants';
 type UserState = 'activate' | 'deactivate';
 declare class Job {
     name: string;
@@ -8,5 +9,6 @@ export declare class User {
     password: string;
     state: UserState;
     job: Job;
+    roles: Role[];
 }
 export {};

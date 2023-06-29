@@ -1,4 +1,5 @@
 import { prop, modelOptions } from '@typegoose/typegoose';
+import { Role } from 'src/constants';
 
 type UserState = 'activate' | 'deactivate';
 
@@ -12,7 +13,6 @@ class Job {
 
 @modelOptions({ schemaOptions: { collection: 'users' } })
 export class User {
-  
   @prop({ required: true })
   username: string;
 
@@ -24,4 +24,7 @@ export class User {
 
   @prop()
   job: Job;
+
+  @prop()
+  roles: Role[];
 }

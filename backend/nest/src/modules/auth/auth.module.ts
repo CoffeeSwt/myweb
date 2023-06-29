@@ -8,6 +8,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { HashingService } from './hashing.service';
+import { PassportModule } from '@nestjs/passport';
 
 import { APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuard } from './guards/access-token.guard';

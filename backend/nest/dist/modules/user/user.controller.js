@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_service_1 = require("./user.service");
 const common_1 = require("@nestjs/common");
+const roles_decorator_1 = require("../../common/decorators/roles.decorator");
+const constants_1 = require("../../constants");
 let UserController = exports.UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -25,6 +27,7 @@ let UserController = exports.UserController = class UserController {
 };
 __decorate([
     (0, common_1.Post)('find'),
+    (0, roles_decorator_1.Roles)(constants_1.Role.Admin),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

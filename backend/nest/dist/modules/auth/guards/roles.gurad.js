@@ -12,34 +12,38 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AccessTokenGuard = void 0;
+exports.RolesGuard = void 0;
 const common_1 = require("@nestjs/common");
-const jwt_1 = require("@nestjs/jwt");
 const core_1 = require("@nestjs/core");
-const constants_1 = require("../../../constants");
+const roles_decorator_1 = require("../../../common/decorators/roles.decorator");
+const jwt_1 = require("@nestjs/jwt");
 const jwt_config_1 = require("../../../config/jwt.config");
-const public_decorator_1 = require("../../../common/decorators/public.decorator");
-let AccessTokenGuard = exports.AccessTokenGuard = class AccessTokenGuard {
-    constructor(reflector, jwtService, jwtConfiguration) {
+const nestjs_typegoose_1 = require("nestjs-typegoose");
+const User_1 = require("../../../models/User");
+let RolesGuard = exports.RolesGuard = class RolesGuard {
+    constructor(reflector, jwtService, jwtConfiguration, userModel) {
         this.reflector = reflector;
         this.jwtService = jwtService;
         this.jwtConfiguration = jwtConfiguration;
+        this.userModel = userModel;
     }
     async canActivate(context) {
-        const isPublic = this.reflector.get(public_decorator_1.IS_PUBLIC_KEY, context.getHandler());
-        if (isPublic)
+        const requiredRoles = this.reflector.getAllAndOverride(roles_decorator_1.ROLES_KEY, [
+            context.getHandler(),
+            context.getClass(),
+        ]);
+        if (!requiredRoles) {
             return true;
+        }
         const request = context.switchToHttp().getRequest();
         const token = this.extractTokenFromHeader(request);
         if (!token)
             throw new common_1.UnauthorizedException();
-        try {
-            const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration);
-            request[constants_1.REQUEST_USER_KEY] = payload;
-        }
-        catch (error) {
-            throw new common_1.UnauthorizedException(401);
-        }
+        const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration);
+        const user = this.userModel.findById(payload.sub);
+        const flag = requiredRoles.some((role) => user?.roles?.includes(role));
+        if (!flag)
+            throw new common_1.ForbiddenException();
         return true;
     }
     extractTokenFromHeader(request) {
@@ -47,10 +51,11 @@ let AccessTokenGuard = exports.AccessTokenGuard = class AccessTokenGuard {
         return token;
     }
 };
-exports.AccessTokenGuard = AccessTokenGuard = __decorate([
+exports.RolesGuard = RolesGuard = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(jwt_config_1.default.KEY)),
+    __param(3, (0, nestjs_typegoose_1.InjectModel)(User_1.User)),
     __metadata("design:paramtypes", [core_1.Reflector,
-        jwt_1.JwtService, void 0])
-], AccessTokenGuard);
-//# sourceMappingURL=access-token.guard.js.map
+        jwt_1.JwtService, void 0, Object])
+], RolesGuard);
+//# sourceMappingURL=roles.gurad.js.map

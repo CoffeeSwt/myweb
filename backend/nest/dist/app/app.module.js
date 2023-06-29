@@ -21,7 +21,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             user_module_1.UserModule,
             auth_module_1.AuthModule,
-            nestjs_typegoose_1.TypegooseModule.forRoot('mongodb://root:120400@localhost:27017/myweb?authMechanism=DEFAULT&authSource=admin'),
+            nestjs_typegoose_1.TypegooseModule.forRoot('mongodb://localhost:27017/myweb'),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),

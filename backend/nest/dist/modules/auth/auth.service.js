@@ -19,6 +19,7 @@ const jwt_config_1 = require("../../config/jwt.config");
 const hashing_service_1 = require("./hashing.service");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
 const User_1 = require("../../models/User");
+const constants_1 = require("../../constants");
 let AuthService = exports.AuthService = class AuthService {
     constructor(userModel, jwtService, jwtConfiguration, hashingService) {
         this.userModel = userModel;
@@ -34,6 +35,7 @@ let AuthService = exports.AuthService = class AuthService {
         const hashedPassword = await this.hashingService.hash(createUserDto.password);
         createUserDto.state = 'activate';
         createUserDto.password = hashedPassword;
+        createUserDto.roles = [constants_1.Role.Normal];
         const createdUser = new this.userModel(createUserDto);
         return createdUser.save();
     }
@@ -41,10 +43,10 @@ let AuthService = exports.AuthService = class AuthService {
         const { username, password } = user;
         const userFind = await this.userModel.findOne({ username }).exec();
         if (!userFind)
-            return false;
+            return new common_1.ForbiddenException();
         const isEqual = await this.hashingService.compare(password, userFind.password);
         if (!isEqual)
-            return false;
+            return new common_1.ForbiddenException();
         return await this.generateTokens(userFind);
     }
     async generateTokens(user) {
@@ -61,6 +63,15 @@ let AuthService = exports.AuthService = class AuthService {
             issuer: this.jwtConfiguration.issuer,
             expiresIn: this.jwtConfiguration.accessTokenTtl,
         });
+    }
+    async validateUser(username, password) {
+        const userFind = await this.userModel.findOne({ username }).exec();
+        if (!userFind)
+            return null;
+        const isEqual = await this.hashingService.compare(password, userFind.password);
+        if (!isEqual)
+            return null;
+        return userFind;
     }
 };
 exports.AuthService = AuthService = __decorate([
