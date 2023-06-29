@@ -38,7 +38,7 @@ export class RolesGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException();
     const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration);
-    const user = this.userModel.findById(payload.sub);
+    const user = await this.userModel.findById(payload.sub).exec();
     const flag = requiredRoles.some((role) => user?.roles?.includes(role));
     if (!flag) throw new ForbiddenException();
     return true;

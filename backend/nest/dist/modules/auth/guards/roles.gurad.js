@@ -40,7 +40,7 @@ let RolesGuard = exports.RolesGuard = class RolesGuard {
         if (!token)
             throw new common_1.UnauthorizedException();
         const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration);
-        const user = this.userModel.findById(payload.sub);
+        const user = await this.userModel.findById(payload.sub).exec();
         const flag = requiredRoles.some((role) => user?.roles?.includes(role));
         if (!flag)
             throw new common_1.ForbiddenException();
