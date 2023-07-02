@@ -1,5 +1,5 @@
 // src/auth/auth.controller.ts
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, MethodNotAllowedException } from '@nestjs/common';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { User } from 'src/models/User';
@@ -13,7 +13,7 @@ export class AuthController {
 
   @Public()
   @Post('new')
-  async create(@Body() user: Omit<User, 'state'>): Promise<User | string> {
+  async create(@Body() user: Omit<User, 'state'>): Promise<User | MethodNotAllowedException> {
     return await this.authService.create(user);
   }
 

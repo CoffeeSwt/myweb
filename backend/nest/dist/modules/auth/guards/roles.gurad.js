@@ -18,14 +18,11 @@ const core_1 = require("@nestjs/core");
 const roles_decorator_1 = require("../../../common/decorators/roles.decorator");
 const jwt_1 = require("@nestjs/jwt");
 const jwt_config_1 = require("../../../config/jwt.config");
-const nestjs_typegoose_1 = require("nestjs-typegoose");
-const User_1 = require("../../../models/User");
 let RolesGuard = exports.RolesGuard = class RolesGuard {
-    constructor(reflector, jwtService, jwtConfiguration, userModel) {
+    constructor(reflector, jwtService, jwtConfiguration) {
         this.reflector = reflector;
         this.jwtService = jwtService;
         this.jwtConfiguration = jwtConfiguration;
-        this.userModel = userModel;
     }
     async canActivate(context) {
         const requiredRoles = this.reflector.getAllAndOverride(roles_decorator_1.ROLES_KEY, [
@@ -40,8 +37,7 @@ let RolesGuard = exports.RolesGuard = class RolesGuard {
         if (!token)
             throw new common_1.UnauthorizedException();
         const payload = await this.jwtService.verifyAsync(token, this.jwtConfiguration);
-        const user = await this.userModel.findById(payload.sub).exec();
-        const flag = requiredRoles.some((role) => user?.roles?.includes(role));
+        const flag = requiredRoles.some((role) => payload?.roles?.includes(role));
         if (!flag)
             throw new common_1.ForbiddenException();
         return true;
@@ -54,8 +50,7 @@ let RolesGuard = exports.RolesGuard = class RolesGuard {
 exports.RolesGuard = RolesGuard = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(jwt_config_1.default.KEY)),
-    __param(3, (0, nestjs_typegoose_1.InjectModel)(User_1.User)),
     __metadata("design:paramtypes", [core_1.Reflector,
-        jwt_1.JwtService, void 0, Object])
+        jwt_1.JwtService, void 0])
 ], RolesGuard);
 //# sourceMappingURL=roles.gurad.js.map

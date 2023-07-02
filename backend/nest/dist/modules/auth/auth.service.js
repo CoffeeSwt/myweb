@@ -30,7 +30,7 @@ let AuthService = exports.AuthService = class AuthService {
     async create(createUserDto) {
         const user = await this.userModel.findOne({ username: createUserDto.username }).exec();
         if (user) {
-            return 'User has already exist,please login.';
+            return new common_1.MethodNotAllowedException('User has already exist,please login.');
         }
         const hashedPassword = await this.hashingService.hash(createUserDto.password);
         createUserDto.state = 'activate';
@@ -50,7 +50,7 @@ let AuthService = exports.AuthService = class AuthService {
         return await this.generateTokens(userFind);
     }
     async generateTokens(user) {
-        const token = await this.signToken(user._id, { name: user.username });
+        const token = await this.signToken(user._id, { name: user.username, roles: user.roles });
         return { token: `Bearer ${token}` };
     }
     async signToken(userId, payload) {

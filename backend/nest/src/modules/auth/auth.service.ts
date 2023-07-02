@@ -1,5 +1,5 @@
 // src/auth/auth.service.ts
-import { Inject, Injectable, ForbiddenException } from '@nestjs/common';
+import { Inject, Injectable, ForbiddenException, MethodNotAllowedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../../config/jwt.config';
@@ -20,10 +20,10 @@ export class AuthService {
     private readonly hashingService: HashingService,
   ) {}
 
-  async create(createUserDto: Omit<User, 'state'>): Promise<User | string> {
+  async create(createUserDto: Omit<User, 'state'>): Promise<User | MethodNotAllowedException> {
     const user = await this.userModel.findOne({ username: createUserDto.username }).exec();
     if (user) {
-      return 'User has already exist,please login.';
+      return new MethodNotAllowedException('User has already exist,please login.');
     }
     const hashedPassword = await this.hashingService.hash(createUserDto.password);
     (createUserDto as User).state = 'activate';
@@ -44,7 +44,7 @@ export class AuthService {
   }
 
   async generateTokens(user: any) {
-    const token = await this.signToken<Partial<ActiveUserData>>(user._id, { name: user.username });
+    const token = await this.signToken(user._id, { name: user.username, roles: user.roles });
     return { token: `Bearer ${token}` };
   }
 

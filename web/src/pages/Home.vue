@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { api } from "../api";
+// import { api } from "../api";
 import { onMounted } from "vue";
-const { login } = api;
+// const { login } = api;
 onMounted(() => {
-  login({
-    username: "Coffee",
-    password: "123456",
-  });
+//   login({
+//     username: "Coffee",
+//     password: "123456",
+//   });
 });
 </script>
 

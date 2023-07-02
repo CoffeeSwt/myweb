@@ -25,7 +25,7 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-import { ForbiddenException } from '@nestjs/common';
+import { ForbiddenException, MethodNotAllowedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigType } from '@nestjs/config';
 import jwtConfig from '../../config/jwt.config';
@@ -38,7 +38,7 @@ export declare class AuthService {
     private readonly jwtConfiguration;
     private readonly hashingService;
     constructor(userModel: ReturnModelType<typeof User>, jwtService: JwtService, jwtConfiguration: ConfigType<typeof jwtConfig>, hashingService: HashingService);
-    create(createUserDto: Omit<User, 'state'>): Promise<User | string>;
+    create(createUserDto: Omit<User, 'state'>): Promise<User | MethodNotAllowedException>;
     login(user: User): Promise<ForbiddenException | object>;
     generateTokens(user: any): Promise<{
         token: string;

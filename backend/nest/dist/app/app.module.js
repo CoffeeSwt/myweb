@@ -14,6 +14,7 @@ const user_module_1 = require("../modules/user/user.module");
 const auth_module_1 = require("../modules/auth/auth.module");
 const config_1 = require("@nestjs/config");
 const nestjs_typegoose_1 = require("nestjs-typegoose");
+const blog_module_1 = require("../modules/blog/blog.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -21,7 +22,8 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             user_module_1.UserModule,
             auth_module_1.AuthModule,
-            nestjs_typegoose_1.TypegooseModule.forRoot('mongodb://root:120400@localhost:27017/myweb?authMechanism=DEFAULT&authSource=admin'),
+            blog_module_1.BlogModule,
+            nestjs_typegoose_1.TypegooseModule.forRoot('mongodb://root:120400@120.46.180.96:27017/myweb?authMechanism=DEFAULT&authSource=admin'),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
             }),
