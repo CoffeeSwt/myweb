@@ -6,6 +6,7 @@ import { Reflector } from '@nestjs/core';
 import { REQUEST_USER_KEY } from '../../../constants';
 import jwtConfig from '../../../config/jwt.config';
 import { IS_PUBLIC_KEY } from '../../../common/decorators/public.decorator';
+import { logger } from 'src/logger';
 
 @Injectable()
 export class AccessTokenGuard implements CanActivate {
@@ -17,9 +18,11 @@ export class AccessTokenGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const request = context.switchToHttp().getRequest();
+    logger.log(`[${request.url}][${request.method}]`);
     const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler());
     if (isPublic) return true;
-    const request = context.switchToHttp().getRequest();
+
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException();
 

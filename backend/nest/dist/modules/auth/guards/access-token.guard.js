@@ -19,6 +19,7 @@ const core_1 = require("@nestjs/core");
 const constants_1 = require("../../../constants");
 const jwt_config_1 = require("../../../config/jwt.config");
 const public_decorator_1 = require("../../../common/decorators/public.decorator");
+const logger_1 = require("../../../logger");
 let AccessTokenGuard = exports.AccessTokenGuard = class AccessTokenGuard {
     constructor(reflector, jwtService, jwtConfiguration) {
         this.reflector = reflector;
@@ -26,10 +27,11 @@ let AccessTokenGuard = exports.AccessTokenGuard = class AccessTokenGuard {
         this.jwtConfiguration = jwtConfiguration;
     }
     async canActivate(context) {
+        const request = context.switchToHttp().getRequest();
+        logger_1.logger.log(`[${request.url}][${request.method}]`);
         const isPublic = this.reflector.get(public_decorator_1.IS_PUBLIC_KEY, context.getHandler());
         if (isPublic)
             return true;
-        const request = context.switchToHttp().getRequest();
         const token = this.extractTokenFromHeader(request);
         if (!token)
             throw new common_1.UnauthorizedException();
