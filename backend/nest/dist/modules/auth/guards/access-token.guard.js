@@ -28,7 +28,7 @@ let AccessTokenGuard = exports.AccessTokenGuard = class AccessTokenGuard {
     }
     async canActivate(context) {
         const request = context.switchToHttp().getRequest();
-        logger_1.logger.log(`[${request.url}][${request.method}]`);
+        logger_1.logger.log(`收到请求:[${request.url}][${request.method}]`);
         const isPublic = this.reflector.get(public_decorator_1.IS_PUBLIC_KEY, context.getHandler());
         if (isPublic)
             return true;

@@ -19,7 +19,7 @@ export class AccessTokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    logger.log(`[${request.url}][${request.method}]`);
+    logger.log(`收到请求:[${request.url}][${request.method}]`);
     const isPublic = this.reflector.get(IS_PUBLIC_KEY, context.getHandler());
     if (isPublic) return true;
 
