@@ -11,9 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BlogController = void 0;
-const blog_service_1 = require("./blog.service");
+const comment_service_1 = require("./comment.service");
 const Blog_1 = require("./../../models/Blog");
 const common_1 = require("@nestjs/common");
 const roles_decorator_1 = require("../../common/decorators/roles.decorator");
@@ -47,7 +48,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], BlogController.prototype, "create", null);
 exports.BlogController = BlogController = __decorate([
-    (0, common_1.Controller)('blog'),
-    __metadata("design:paramtypes", [blog_service_1.BlogService])
+    (0, common_1.Controller)('Blog'),
+    __metadata("design:paramtypes", [typeof (_a = typeof comment_service_1.BlogService !== "undefined" && comment_service_1.BlogService) === "function" ? _a : Object])
 ], BlogController);
 //# sourceMappingURL=blog.controller.js.map

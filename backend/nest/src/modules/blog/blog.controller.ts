@@ -5,7 +5,7 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { Role } from 'src/constants';
 import { Public } from 'src/common/decorators/public.decorator';
 
-@Controller('Blog')
+@Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
